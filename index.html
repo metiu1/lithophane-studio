@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lithophane Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <header class="brand">
+      <div class="logo">◈</div>
+      <div>
+        <h1>Lithophane Studio</h1>
+        <p>Immagine → 3D stampabile</p>
+      </div>
+    </header>
+
+    <!-- Upload -->
+    <section class="panel" id="dropzone">
+      <input type="file" id="file" accept="image/*" hidden />
+      <label for="file" class="drop">
+        <span class="drop-icon">⬆</span>
+        <strong>Carica immagine</strong>
+        <small>Trascina qui o clicca (JPG, PNG, WEBP)</small>
+      </label>
+      <div class="thumb-wrap" id="thumbWrap" hidden>
+        <img id="thumb" alt="anteprima" />
+        <button class="link" id="clearImg">✕ rimuovi</button>
+      </div>
+    </section>
+
+    <!-- Geometria -->
+    <section class="panel">
+      <h2>Geometria</h2>
+
+      <div class="field">
+        <label>Forma</label>
+        <div class="seg" id="shape">
+          <button data-val="flat" class="active">Piana</button>
+          <button data-val="curved">Curva</button>
+          <button data-val="cylinder">Cilindro</button>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="field">
+          <label>Larghezza <i id="lblW">100 mm</i></label>
+          <input type="range" id="width" min="30" max="300" value="100" step="1" />
+        </div>
+        <div class="field">
+          <label>Spessore max <i id="lblMax">3.0 mm</i></label>
+          <input type="range" id="maxT" min="1" max="10" value="3" step="0.1" />
+        </div>
+        <div class="field">
+          <label>Spessore min <i id="lblMin">0.6 mm</i></label>
+          <input type="range" id="minT" min="0.2" max="3" value="0.6" step="0.1" />
+        </div>
+        <div class="field">
+          <label>Bordo <i id="lblBorder">3 mm</i></label>
+          <input type="range" id="border" min="0" max="15" value="3" step="0.5" />
+        </div>
+      </div>
+
+      <div class="field" id="curveField" hidden>
+        <label>Curvatura <i id="lblCurve">120°</i></label>
+        <input type="range" id="curve" min="20" max="300" value="120" step="5" />
+      </div>
+
+      <div class="field">
+        <label>Risoluzione <i id="lblRes">300 px</i></label>
+        <input type="range" id="res" min="100" max="600" value="300" step="20" />
+        <small class="hint">Più alta = dettaglio + file pesante</small>
+      </div>
+    </section>
+
+    <!-- Immagine -->
+    <section class="panel">
+      <h2>Regolazioni immagine</h2>
+      <div class="grid2">
+        <div class="field">
+          <label>Luminosità <i id="lblBri">0</i></label>
+          <input type="range" id="bri" min="-100" max="100" value="0" step="1" />
+        </div>
+        <div class="field">
+          <label>Contrasto <i id="lblCon">0</i></label>
+          <input type="range" id="con" min="-100" max="100" value="0" step="1" />
+        </div>
+        <div class="field">
+          <label>Gamma <i id="lblGam">1.0</i></label>
+          <input type="range" id="gam" min="0.3" max="3" value="1" step="0.05" />
+        </div>
+        <div class="field">
+          <label>Sfocatura <i id="lblBlur">0</i></label>
+          <input type="range" id="blur" min="0" max="5" value="0" step="0.5" />
+        </div>
+      </div>
+      <div class="toggles">
+        <label class="chk"><input type="checkbox" id="invert" checked /> Negativo (retroillum.)</label>
+        <label class="chk"><input type="checkbox" id="mirror" /> Specchia</label>
+      </div>
+    </section>
+
+    <!-- Export -->
+    <section class="panel export">
+      <h2>Esporta</h2>
+      <div class="stats" id="stats">— triangoli</div>
+      <div class="btn-row">
+        <button class="btn primary" id="exStl">⬇ STL</button>
+        <button class="btn" id="exObj">⬇ OBJ</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="exPng">🖼 Immagine retro (PNG)</button>
+      </div>
+      <p class="hint">L'immagine retro è la versione elaborata in scala di grigi, da stampare/retroilluminare dietro la lithophane.</p>
+    </section>
+
+    <footer class="foot">Tutto in locale nel browser · nessun upload</footer>
+  </aside>
+
+  <!-- Viewport -->
+  <main class="viewport">
+    <div class="vp-bar">
+      <div class="vp-modes" id="viewModes">
+        <button data-mode="3d" class="active">3D</button>
+        <button data-mode="img">Immagine</button>
+      </div>
+      <div class="vp-tools">
+        <button id="resetView" title="Reset vista">⟲ Vista</button>
+        <button id="wire" title="Wireframe">▦ Wire</button>
+        <button id="bg" title="Sfondo">◐ Sfondo</button>
+      </div>
+    </div>
+    <div id="canvasHost"></div>
+    <canvas id="imgCanvas" hidden></canvas>
+    <div id="empty" class="empty">
+      <div class="empty-art">◈</div>
+      <h3>Nessuna immagine</h3>
+      <p>Carica una foto per generare la lithophane</p>
+    </div>
+    <div id="loading" class="loading" hidden><div class="spin"></div><span>Genero mesh…</span></div>
+  </main>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
