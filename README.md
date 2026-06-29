@@ -1,28 +1,28 @@
-# Lithophane Studio — Crea Lithophane da Immagini (Export STL / OBJ)
+# Lithophane Studio — Create Lithophanes from Images (Export STL / OBJ)
 
-**Generatore di lithophane online e gratuito.** Trasforma qualsiasi immagine in un modello 3D stampabile ed esporta in **STL**, **OBJ** e come **immagine retroilluminata PNG**. Anteprima 3D in tempo reale, tutto nel browser — nessun upload, nessuna registrazione.
+**Free online lithophane generator.** Turn any image into a 3D-printable model and export to **STL**, **OBJ**, and as a **backlit PNG image**. Real-time 3D preview, all in the browser — no upload, no sign-up.
 
-🔗 **[Apri la demo live →](https://metiu1.github.io/lithophane-studio/)**
+🔗 **[Open the live demo →](https://metiu1.github.io/lithophane-studio/)**
 
 ![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-000000?logo=three.js&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![No backend](https://img.shields.io/badge/100%25-client--side-blue)
 
-> Parole chiave: lithophane generator, image to STL, immagine to STL, lithophane online, lithophane maker, convertitore STL, stampa 3D, 3D printing, heightmap to mesh.
+> Keywords: lithophane generator, image to STL, lithophane online, lithophane maker, STL converter, 3D printing, heightmap to mesh.
 
-## ✨ Funzioni
+## ✨ Features
 
-- 🖼️ **Da immagine a 3D** — carica JPG/PNG/WEBP (drag & drop)
-- 🧊 **3 forme** — piana, curva, cilindro (lampada/paralume)
-- 🎚️ **Geometria** — larghezza, spessore min/max, bordo, curvatura, risoluzione
-- 🌗 **Regolazioni** — luminosità, contrasto, gamma, sfocatura, negativo, specchio
-- 👁️ **Anteprima 3D** — orbita, zoom, wireframe, sfondo con glow retroilluminato
-- 📦 **Export** — `.stl` binario (watertight, pronto stampa), `.obj`, e **PNG retro** in scala di grigi
+- 🖼️ **Image to 3D** — upload JPG/PNG/WEBP (drag & drop)
+- 🧊 **3 shapes** — flat, curved, cylinder (lamp/lampshade)
+- 🎚️ **Geometry** — width, min/max thickness, border, curvature, resolution
+- 🌗 **Adjustments** — brightness, contrast, gamma, blur, negative, mirror
+- 👁️ **3D preview** — orbit, zoom, wireframe, backlit glow background
+- 📦 **Export** — binary `.stl` (watertight, print-ready), `.obj`, and **backlit grayscale PNG**
 
-## 🚀 Avvio locale
+## 🚀 Run locally
 
-I moduli ES richiedono un server HTTP (non `file://`):
+ES modules require an HTTP server (not `file://`):
 
 ```bash
 git clone https://github.com/metiu1/lithophane-studio.git
@@ -30,26 +30,26 @@ cd lithophane-studio
 python -m http.server 8000
 ```
 
-Apri **http://localhost:8000**
+Open **http://localhost:8000**
 
-## 🖨️ Guida alla stampa 3D
+## 🖨️ 3D printing guide
 
-| Parametro      | Valore consigliato |
+| Parameter      | Recommended value |
 |----------------|--------------------|
-| Spessore min   | 0.6 mm             |
-| Spessore max   | 3 mm               |
-| Altezza layer  | 0.1 mm             |
+| Min thickness  | 0.6 mm             |
+| Max thickness  | 3 mm               |
+| Layer height   | 0.1 mm             |
 | Infill         | 100 %              |
-| Supporti       | No                 |
-| Negativo       | ON (scuro → spesso, per retroilluminazione) |
+| Supports       | No                 |
+| Negative       | ON (dark → thick, for backlighting) |
 
-## 🛠️ Tecnologia
+## 🛠️ Technology
 
-- **Three.js** — rendering e anteprima 3D
-- **Canvas API** — elaborazione immagine e heightmap
-- Generazione mesh **watertight** (superficie + base + pareti) + esportatori STL/OBJ custom
-- Zero dipendenze backend, 100% client-side
+- **Three.js** — 3D rendering and preview
+- **Canvas API** — image processing and heightmap
+- **Watertight** mesh generation (surface + base + walls) + custom STL/OBJ exporters
+- Zero backend dependencies, 100% client-side
 
-## 📄 Licenza
+## 📄 License
 
-MIT — vedi [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
