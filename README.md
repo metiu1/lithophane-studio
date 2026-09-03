@@ -1,28 +1,53 @@
-# Lithophane Studio — Create Lithophanes from Images (Export STL / OBJ)
+<h1 align="center">Lithophane Studio — turn any photo into a 3D-printable lithophane</h1>
 
-**Free online lithophane generator.** Turn any image into a 3D-printable model and export to **STL**, **OBJ**, and as a **backlit PNG image**. Real-time 3D preview, all in the browser — no upload, no sign-up.
+<p align="center">
+  <strong>Free online lithophane generator. Drop in an image, get a print-ready STL or OBJ.</strong><br/>
+  Runs entirely in your browser — nothing is uploaded, nothing is installed, no sign-up.
+</p>
 
-🔗 **[Open the live demo →](https://metiu1.github.io/lithophane-studio/)**
+<p align="center">
+  <a href="https://metiu1.github.io/lithophane-studio/"><strong>▶ Open the live demo</strong></a>
+</p>
 
-![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
-![Three.js](https://img.shields.io/badge/Three.js-000000?logo=three.js&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-green)
-![No backend](https://img.shields.io/badge/100%25-client--side-blue)
+<p align="center">
+  <img src="https://img.shields.io/badge/100%25-client--side-blue?style=flat-square" alt="Client side"/>
+  <img src="https://img.shields.io/badge/upload-none-brightgreen?style=flat-square" alt="No upload"/>
+  <img src="https://img.shields.io/badge/export-STL%20%7C%20OBJ%20%7C%20PNG-orange?style=flat-square" alt="Export formats"/>
+  <img src="https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=three.js&logoColor=white" alt="Three.js"/>
+  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License"/>
+</p>
 
-> Keywords: lithophane generator, image to STL, lithophane online, lithophane maker, STL converter, 3D printing, heightmap to mesh.
+---
 
-## ✨ Features
+## What a lithophane is, and what this does
 
-- 🖼️ **Image to 3D** — upload JPG/PNG/WEBP (drag & drop)
-- 🧊 **3 shapes** — flat, curved, cylinder (lamp/lampshade)
-- 🎚️ **Geometry** — width, min/max thickness, border, curvature, resolution
-- 🌗 **Adjustments** — brightness, contrast, gamma, blur, negative, mirror
-- 👁️ **3D preview** — orbit, zoom, wireframe, backlit glow background
-- 📦 **Export** — binary `.stl` (watertight, print-ready), `.obj`, and **backlit grayscale PNG**
+A lithophane is a thin plate printed at varying thickness: thick where the photo is
+dark, thin where it is bright. Flat and lit from the front it looks like a blank
+white slab — put a light behind it and the picture appears.
 
-## 🚀 Run locally
+Lithophane Studio does the conversion. You give it a JPG, PNG or WEBP; it builds the
+heightmap, generates a **watertight** mesh (surface, base and side walls, not just a
+displaced plane) and hands you a binary `.stl` your slicer will accept without
+repair. You see the result in 3D, with a backlit preview, before you export anything.
 
-ES modules require an HTTP server (not `file://`):
+**Why this one:** the usual lithophane generators upload your photo to a server, ask
+you to register, or hand back a mesh with holes your slicer refuses. This one runs
+in the page. Your photo never leaves the machine, because there is nothing to leave
+it to — there is no backend.
+
+## Features
+
+- **Image to 3D** — JPG / PNG / WEBP, drag & drop
+- **3 shapes** — flat panel, curved panel, cylinder (for lamps and lampshades)
+- **Geometry** — width, min/max thickness, border, curvature, resolution
+- **Image adjustments** — brightness, contrast, gamma, blur, negative, mirror
+- **Live 3D preview** — orbit, zoom, wireframe, backlit glow background
+- **Export** — binary `.stl` (watertight, print-ready), `.obj`, and a backlit grayscale PNG
+
+## Run it locally
+
+The live demo needs nothing. To run your own copy, ES modules require an HTTP server
+(opening `index.html` as `file://` will not work):
 
 ```bash
 git clone https://github.com/metiu1/lithophane-studio.git
@@ -32,24 +57,27 @@ python -m http.server 8000
 
 Open **http://localhost:8000**
 
-## 🖨️ 3D printing guide
+## 3D printing settings
 
-| Parameter      | Recommended value |
-|----------------|--------------------|
-| Min thickness  | 0.6 mm             |
-| Max thickness  | 3 mm               |
-| Layer height   | 0.1 mm             |
-| Infill         | 100 %              |
-| Supports       | No                 |
-| Negative       | ON (dark → thick, for backlighting) |
+| Parameter | Recommended |
+|---|---|
+| Min thickness | 0.6 mm |
+| Max thickness | 3 mm |
+| Layer height | 0.1 mm |
+| Infill | 100 % |
+| Supports | No |
+| Negative | ON (dark → thick, for backlighting) |
 
-## 🛠️ Technology
+Print flat panels standing upright, on the short edge: the layer lines then run
+across the image instead of along it, and the detail survives.
+
+## How it works
 
 - **Three.js** — 3D rendering and preview
-- **Canvas API** — image processing and heightmap
-- **Watertight** mesh generation (surface + base + walls) + custom STL/OBJ exporters
-- Zero backend dependencies, 100% client-side
+- **Canvas API** — image processing and heightmap extraction
+- Watertight mesh generation (surface + base + walls) with custom STL/OBJ exporters
+- Zero backend, zero dependencies to install, 100 % client-side
 
-## 📄 License
+## License
 
 MIT — see [LICENSE](LICENSE).
